@@ -1,0 +1,52 @@
+{% extends 'query/base.html' %}
+{% block body %}
+
+    <div class="row">
+
+    <div class="col-4">
+    <h4 class="text-center alert alert-info">Customer</h4>
+         {% for customer in ob %}
+                <td>
+                <th scope="row"></th>
+                <td>{{ customer.customer }}</td>
+             <br>
+
+         {% endfor %}
+    </div>
+    <div class="col-8">
+        <h4 class="text-center alert alert-info">Query Information  </h4>
+
+            <table class="table table-hover bg-powderblue">
+            <thead>
+            <tr class="text-center">
+                <th scope="col" style="width: 2%">ID</th>
+                <th scope="col" style="width: 23%">Name</th>
+                <th scope="col" style="width: 5%">mobile</th>
+                <th scope="col" style="width: 5%">email</th>
+                <th scope="col" style="width: 50%">Query</th>
+                <th scope="col" style="width: 15%">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for query in querys %}
+                <tr>
+                <th scope="row">{{ query.querydata_id }}</th>
+                <td>{{ query.name }}</td>
+                <td>{{ query.mobile_number }}</td>
+                <td>{{ query.email_id}}</td>
+                <td>{{query.query}}
+                <td class="text-center">
+                <a href="{% url 'updatequery' query.querydata_id%}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{% url 'deletequery' query.querydata_id%}" method="post" class="d-inline">{% csrf_token %}
+                <input type="submit" class="btn btn-danger btn-sm" value="Delete"></form>
+                </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+            </table>
+
+    </div>
+    </div>
+{% endblock %}
+
